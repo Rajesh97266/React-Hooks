@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
 
-function Timer() {
-  const [count, setCount] = useState(0);
+function NameLogger() {
+  const [name, setName] = useState("");
 
-  // useEffect with no dependencies, it runs on mount and unmount
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prevCount) => prevCount + 1);
-    }, 1000);
-
-    // Cleanup function to clear the interval when the component unmounts
-    return () => clearInterval(interval);
-  }, []); // Empty array ensures it runs only once after the first render
+    console.log(`Name changed: ${name}`); // Logs when 'name' state changes
+  }, [name]); // Dependency array, effect runs when 'name' changes
 
   return (
     <div>
-      <h1>Timer: {count}s</h1>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Enter name"
+      />
     </div>
   );
 }
 
-export default Timer;
+export default NameLogger;
