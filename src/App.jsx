@@ -1,46 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function RegistrationForm() {
-  const [formData, setFormData] = useState({ name: "", email: "" });
+function Timer() {
+  const [count, setCount] = useState(0);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value, // Update dynamic key
-    }));
-  };
+  // useEffect with no dependencies, it runs on mount and unmount
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
+    }, 1000);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(interval);
+  }, []); // Empty array ensures it runs only once after the first render
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <h1>Timer: {count}s</h1>
+    </div>
   );
 }
 
-export default RegistrationForm;
+export default Timer;
