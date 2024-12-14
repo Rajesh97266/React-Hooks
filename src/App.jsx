@@ -1,37 +1,30 @@
 import React, { useState } from "react";
 
 function App() {
-  const [settings, setSettings] = useState({
-    theme: "light",
-    fontSize: 16,
-  });
-  const [age, setAge] = useState(20);
+ const[todo ,setTodo] = useState([])
 
-  const toggleTheme = () => {
-    setSettings((prev) => ({
-      ...prev,
-      theme: prev.theme === "dark" ? "light" : "dark",
-    }));
-  };
+ const addTask = ()=>{
+  const newTask = `Tasks ${todo.length + 1}`
+  setTodo((prev)=>[...prev , newTask])
+ }
 
-  const IncreaseFontSize = () => {
-    setSettings((prev) => ({
-      ...prev,
-      fontSize: prev.fontSize + 2,
-    }));
-  };
+ const removeTask  =()=> {
+  setTodo((prev)=>prev.slice(0,-1))
+ }
 
-  const increaseAge = () => {
-    setAge((prev) => prev + 1);
-  };
 
   return (
     <>
-      <h2>Theme:{settings.theme}</h2>
-      <h3>Font Size:{settings.fontSize}px</h3>
-      <button onClick={toggleTheme}>Toggle Theme</button>
-      <button onClick={IncreaseFontSize}>Increase Font Size</button>
-      <button onClick={increaseAge}>{age}</button>
+    <div>
+      <h2>ToDO List </h2>
+      <ul>
+        {todo.map((to , index)=>(
+          <li key={index}>{to}</li>
+        ))}
+      </ul>
+      <button onClick={addTask}>Add Task</button>
+      <button onClick={removeTask}>Remove Task</button>
+    </div>
     </>
   );
 }
