@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
+import  { createContext, useState } from "react";
+import ThemeSwitcher from "./ThemeSwitcher";
 
-function NameLogger() {
-  const [name, setName] = useState("");
+export const ThemeContext = createContext();
 
-  useEffect(() => {
-    console.log(`Name changed: ${name}`); // Logs when 'name' state changes
-  }, [name]); // Dependency array, effect runs when 'name' changes
-
+function App() {
+  const [theme, setTheme] = useState("light");
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
   return (
-    <div>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter name"
-      />
-    </div>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div>
+        <h1>current theme:{theme}</h1>
+        <ThemeSwitcher />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
-export default NameLogger;
+export default App;
