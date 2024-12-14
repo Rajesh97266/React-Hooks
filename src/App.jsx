@@ -5,6 +5,7 @@ function App() {
     theme: "light",
     fontSize: 16,
   });
+  const [age, setAge] = useState(20);
 
   const toggleTheme = () => {
     setSettings((prev) => ({
@@ -20,12 +21,17 @@ function App() {
     }));
   };
 
+  const increaseAge = () => {
+    setAge((prev) => prev + 1);
+  };
+
   return (
     <>
       <h2>Theme:{settings.theme}</h2>
       <h3>Font Size:{settings.fontSize}px</h3>
       <button onClick={toggleTheme}>Toggle Theme</button>
       <button onClick={IncreaseFontSize}>Increase Font Size</button>
+      <button onClick={increaseAge}>{age}</button>
     </>
   );
 }
